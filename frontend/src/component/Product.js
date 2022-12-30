@@ -1,7 +1,7 @@
-import React, { useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useContext, } from 'react';
 import productContext from '../context/product/productContext';
 import ProductItem from './ProductItem';
-import ViewProduct from './ViewProduct';
+
 const Product = () => {
     const firstContext = useContext(productContext);
     const { products, getProduct } = firstContext;
@@ -10,12 +10,7 @@ const Product = () => {
         getProduct();
         // eslint-disable-next-line
     }, [])
-    const vProduct = useRef(null)
-    // const refClose = useRef(null)
-    const viewProduct = () => {
-        // console.log('ref clicked');
-        vProduct.current.click();
-    }
+   
     return (
         <>
             <section className="products mt-5">
@@ -37,12 +32,10 @@ const Product = () => {
                                 </thead>
                                 <tbody>
                                     {products.map((item) => {
-                                        return <ProductItem key={item._id} item={item} viewProduct={viewProduct} />
-
+                                        return <ProductItem key={item._id} item={item}  />
                                     })}
                                 </tbody>
                             </table>
-                            <ViewProduct vProduct={vProduct} />
                         </div>
                     </div>
                 </div>

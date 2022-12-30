@@ -1,7 +1,8 @@
 import React, { useEffect, useContext } from 'react'
+import userContext from '../context/user/userContex';
 
 const ViewUser = () => {
-    const context = useContext(useContext);
+    const context = useContext(userContext);
     const { user, getUserDetails } = context;
     useEffect(() => {
         getUserDetails();

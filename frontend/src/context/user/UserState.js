@@ -1,7 +1,9 @@
 import React,{useState} from 'react'
 import userContext from './userContex'
 import axios from 'axios'
+
 const UserState = (props) => {
+ 
     const [user, setUser] = useState({})
     const createUser = async (data, img) => {
         const formData = new FormData();
@@ -11,11 +13,12 @@ const UserState = (props) => {
         formData.append('phone', data.phone);
         formData.append('bio', data.bio);
         formData.append('photo', img);
-        axios.post("http://localhost:8000/api/auth/createuser", formData, {
-        }).then(res => {
-            console.log(res)
-            // console.log(res.data.profileImg);
+       const response =await axios.post("http://localhost:8000/api/auth/createuser", formData, {
         })
+           //console.log(response);
+           if(response.data.sucess){
+           localStorage.setItem('auth-token',response.data.authToken);
+           }
     }
     const getUserDetails = async () => {
         const response = await fetch(`http://localhost:8000/api/auth/userdetails`, {
@@ -23,7 +26,7 @@ const UserState = (props) => {
 
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhYmYyOGJlMGM2ZWVkZjVmMWUxZTYzIn0sImlhdCI6MTY3MjIxMzM3Mn0.MaOojZs6Mp8yMewY8uy23LuquqX3Y8QmR-SuJH3_cwA'
+                'auth-token': localStorage.getItem('auth-token')
                 // 'Content-Type': 'application/x-www-form-urlencoded',
             }
             // body data type must match "Content-Type" header
@@ -32,7 +35,23 @@ const UserState = (props) => {
         setUser(data);
 
     }
-    return (<userContext.Provider value={{user,createUser,getUserDetails }}>
+    const userLogin=async(credientials)=>{
+        const response = await fetch("http://localhost:8000/api/auth/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: credientials.email, password: credientials.password })
+        });
+        const json = await response.json()
+        // console.log(json);
+        // console.log(json.authToken);
+       if(json.sucess){
+        localStorage.setItem('auth-token',json.authToken);
+       }
+        
+    }
+    return (<userContext.Provider value={{user,createUser,getUserDetails,userLogin }}>
         {props.children}
     </userContext.Provider>)
 }

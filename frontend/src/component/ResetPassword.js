@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 const ResetPassword = () => {
     let { token } = useParams();
-    let navigate=useNavigate()
+    let navigate = useNavigate()
     const [password, setPassword] = useState('')
     const handelChange = (e) => {
         setPassword(e.target.value)
@@ -18,7 +18,7 @@ const ResetPassword = () => {
         });
         const json = await response.json();
         console.log(json);
-        if(json.success){
+        if (json.success) {
             navigate('/login');
         }
 
@@ -30,11 +30,9 @@ const ResetPassword = () => {
                     <label htmlFor="exampleInputPassword1" className="form-label">New Password</label>
                     <input type="password" className="form-control" name='password' onChange={handelChange} id="exampleInputPassword1" />
                 </div>
-
                 <div>
                     <button type="submit" onClick={handelSubmit} className="btn btn-primary ">Submit</button>
                 </div>
-
             </form>
         </div>
     )

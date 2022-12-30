@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import productContext from '../context/product/productContext';
 
 const ProductItem = (props) => {
+  const navigate = useNavigate();
   const first = useContext(productContext)
-  const { deleteProduct, getProductDetails,updateProductDetails } = first;
-  const { item,viewProduct } = props;
+  const { deleteProduct  } = first;
+  const { item } = props;
   return (
     <>
       <tr>
@@ -17,13 +20,15 @@ const ProductItem = (props) => {
         <td>{item.quantity}</td>
         <td className='d-flex justify-content-evenly'>
           <button className='btn' onClick={() => {
-            getProductDetails(item._id);
-            viewProduct();
-          }}><i className="bi bi-eye" ></i></button>
-          <button className='btn'onClick={()=>{
-            updateProductDetails(item._id);
-            viewProduct();
+           //console.log(item._id);
+            navigate(`/product/${item._id.toString()}`);
+          }}> <i className="bi bi-eye" ></i></button>
+
+          <button className='btn' onClick={() => {
+            //console.log(item._id);
+            navigate(`/updateproduct/${item._id.toString()}`);
           }}><i className="bi bi-pencil"></i></button>
+          
           <button className='btn' onClick={() => {
             deleteProduct(item._id)
           }}><i className="bi bi-trash3"></i></button>

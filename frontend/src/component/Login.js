@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import userContext from '../context/user/userContex';
 
 const Login = () => {
     const navigate = useNavigate();
+    if(localStorage.getItem('auth-token')){
+        localStorage.removeItem('auth-token')
+    }
+    const context = useContext(userContext)
+    const{userLogin}=context
     const [credientials, setCredientials] = useState({ email: "", password: "" })
-    const handelSubmit = async (e) => {
+    const handelSubmit =  (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:8000/api/auth/login", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: credientials.email, password: credientials.password })
-        });
-        const json = await response.json()
-        console.log(json);
-        if (json.sucess) {
+        userLogin(credientials);
+        
+        if (localStorage.getItem('auth-token')) {
             navigate('/')
         }
     }
@@ -61,8 +60,6 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
 

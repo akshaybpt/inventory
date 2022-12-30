@@ -1,12 +1,14 @@
-import React,{useContext} from 'react'
+import React, { useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import productContext from '../context/product/productContext'
 
 const UpdateProduct = () => {
-    const context=useContext(productContext)
-    const {productDetails}=context
+  const {id}=useParams();
+  const context = useContext(productContext)
+  const { productDetails } = context
   return (
     <div>
-{productDetails.name}
+      {id}
     </div>
   )
 }

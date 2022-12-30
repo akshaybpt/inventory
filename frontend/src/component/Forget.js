@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+
 
 const Forget = () => {
 
 const [email, setEmail] = useState('');
 
-let navigate = useNavigate();
+
 
     const handelChange=(e)=>{
 setEmail(e.target.value)
@@ -21,9 +21,7 @@ setEmail(e.target.value)
         });
         const json =await response.json();
         console.log(json);
-        if(json.success){
-            navigate('/msg');
-        }
+       
     }
     return (
         <div>

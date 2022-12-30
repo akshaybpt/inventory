@@ -1,6 +1,11 @@
 import React, { useState, useContext } from 'react';
 import userContext from '../context/user/userContex';
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
+    const navigate = useNavigate();
+    if(localStorage.getItem('auth-token')){
+        localStorage.removeItem('auth-token')
+    }
     const context = useContext(userContext);
     const { createUser } = context;
     const [img, setImg] = useState('');
@@ -8,6 +13,12 @@ const Signup = () => {
     const handelSubmit = (e) => {
         e.preventDefault();
         createUser(data, img);
+        if(localStorage.getItem('auth-token')){
+            navigate('/')
+           }else{
+            console.log("false");
+           }
+        
     }
     const handelChange = (e) => {
 

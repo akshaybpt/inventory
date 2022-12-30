@@ -43,7 +43,7 @@ const ProductState = (props) => {
       method: 'Get', // *GET, POST, PUT, DELETE, etc.
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
+        'auth-token': localStorage.getItem('auth-token')
         // 'Content-Type': 'application/x-www-form-urlencoded',
       },
     });
@@ -61,7 +61,7 @@ const ProductState = (props) => {
 
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
+        'auth-token': localStorage.getItem('auth-token')
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
       // body data type must match "Content-Type" header
@@ -82,7 +82,7 @@ const ProductState = (props) => {
 
       headers: {
         'Content-Type': 'application/json',
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
+        'auth-token': localStorage.getItem('auth-token')
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
       // body data type must match "Content-Type" header
@@ -105,7 +105,7 @@ const ProductState = (props) => {
 
     const response = await axios.post("http://localhost:8000/api/product/addproduct", formData, {
       headers: {
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
+        'auth-token': localStorage.getItem('auth-token')
       }
     })
     console.log(response)
@@ -125,7 +125,7 @@ const ProductState = (props) => {
 
     const response = await axios.patch(`http://localhost:8000/api/product/updateproduct/${id}`, formData, {
       headers: {
-        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
+        'auth-token': localStorage.getItem('auth-token')
       }
     })
     console.log(response)
