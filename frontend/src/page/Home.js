@@ -1,7 +1,10 @@
-import React from 'react'
-import Navbar from '../component/Navbar'
-import Product from '../component/Product'
-import Sidebar from '../component/Sidebar'
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import AddProduct from '../component/AddProduct';
+import Dashboard from '../component/Dashboard';
+import Sidebar from '../component/Sidebar';
+import UpdateProduct from '../component/UpdateProduct';
+import About from './About';
 
 const Home = () => {
   return (
@@ -12,14 +15,17 @@ const Home = () => {
             <Sidebar />
           </div>
           <div className="col-md-10">
-            <Navbar />
             <div className="productdiv">
-            <Product />
+              <Routes>
+                <Route exact path={'/'} element={<Dashboard />} />
+                <Route exact path={'/about'} element={<About />} />
+                <Route exact path={'/addproduct'} element={<AddProduct />} />
+                <Route exact path={"/updateProduct"} element={<UpdateProduct />} />
+              </Routes>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   )
 }

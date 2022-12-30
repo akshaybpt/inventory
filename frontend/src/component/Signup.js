@@ -1,23 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useContext } from 'react';
+import userContext from '../context/user/userContex';
 const Signup = () => {
+    const context = useContext(userContext);
+    const { createUser } = context;
     const [img, setImg] = useState('');
     const [data, setData] = useState({ name: "", bio: "", email: "", password: "", phone: "" });
     const handelSubmit = (e) => {
-
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', data.name);
-        formData.append('email', data.email);
-        formData.append('password', data.password);
-        formData.append('phone', data.phone);
-        formData.append('bio', data.bio);
-        formData.append('photo', img);
-        axios.post("http://localhost:8000/api/auth/createuser", formData, {
-        }).then(res => {
-            console.log(res)
-            // console.log(res.data.profileImg);
-        })
+        createUser(data, img);
     }
     const handelChange = (e) => {
 

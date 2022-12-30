@@ -16,6 +16,7 @@ const ProductState = (props) => {
       "buyPrice": 20000,
       "sellPrice": 50000,
       "quantity": 10,
+      "description": "wgfuyewgf",
       "date": "2022-12-21T06:28:18.602Z",
       "__v": 0
     }
@@ -30,6 +31,7 @@ const ProductState = (props) => {
     "buyPrice": 20000,
     "sellPrice": 50000,
     "quantity": 10,
+    "description": "wgfuyewgf",
     "date": "2022-12-21T06:28:18.602Z",
     "__v": 0
   }
@@ -90,7 +92,7 @@ const ProductState = (props) => {
     console.log(json);
 
   }
-  const createProduct = async(data, img) => {
+  const createProduct = async (data, img) => {
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('sku', data.sku);
@@ -101,17 +103,37 @@ const ProductState = (props) => {
     formData.append('description', data.description);
     formData.append('photo', img);
 
-    const response= await axios.post("http://localhost:8000/api/product/addproduct", formData, {
+    const response = await axios.post("http://localhost:8000/api/product/addproduct", formData, {
       headers: {
         'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
       }
     })
-      console.log(response)
-      // console.log(res.data.profileImg);
-    
-  }
+    console.log(response)
+    // console.log(res.data.profileImg);
 
-  return (<productContext.Provider value={{ products, productDetails, getProduct, deleteProduct, getProductDetails, createProduct }}>
+  }
+  const updateProductDetails = async (data, img, id) => {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('sku', data.sku);
+    formData.append('category', data.category);
+    formData.append('quantity', data.quantity);
+    formData.append('buyPrice', data.buyPrice);
+    formData.append('sellPrice', data.sellPrice);
+    formData.append('description', data.description);
+    formData.append('photo', img);
+
+    const response = await axios.patch(`http://localhost:8000/api/product/updateproduct/${id}`, formData, {
+      headers: {
+        'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjNhMThhYmQxYjllZjQ3ZWFjM2EzYWNmIn0sImlhdCI6MTY3MTYwMTM4NH0.2jD-dU1sjO9Lw3BIzCwt5yPKcMWhCnQr1hZ3kdtj3UQ'
+      }
+    })
+    console.log(response)
+    // console.log(res.data.profileImg);
+
+
+  }
+  return (<productContext.Provider value={{ products, productDetails, getProduct, deleteProduct, getProductDetails, createProduct, updateProductDetails }}>
     {props.children}
   </productContext.Provider>)
 }

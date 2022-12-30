@@ -10,11 +10,7 @@ const Message = () => {
         // eslint-disable-next-line
     }, [])
 
-    // const changePage=()=>{
-    //     setInterval(() => {
-    //         navigate('/login')
-    //       }, 1000);
-    // }
+    
 
 
     return (
