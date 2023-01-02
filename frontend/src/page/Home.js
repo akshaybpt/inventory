@@ -20,6 +20,7 @@ const Home = () => {
             <Sidebar />
           </div>
           <div className="col-md-10">
+
             <div className="productdiv">
               <Navbar />
               <Routes>

@@ -10,7 +10,18 @@
   --bs-table-striped-bg: #0dcaf054 !important;
   }
   .productdiv{
-    
-    overflow-y: auto;
+    height: 100vh;
+    overflow-y: scroll;
 
   }
+  
+/* Hide scrollbar for Chrome, Safari and Opera */
+.productdiv::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.productdiv {
+-ms-overflow-style: none;  /* IE and Edge */
+scrollbar-width: none;  /* Firefox */
+}
