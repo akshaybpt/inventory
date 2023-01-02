@@ -1,21 +1,31 @@
-import React, { useState, useContext } from 'react';
-import userContext from '../context/user/userContex';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Signup = () => {
     const navigate = useNavigate();
-    if(localStorage.getItem('auth-token')){
+    if (localStorage.getItem('auth-token')) {
         localStorage.removeItem('auth-token')
     }
-    const context = useContext(userContext);
-    const { createUser } = context;
+
     const [img, setImg] = useState('');
     const [data, setData] = useState({ name: "", bio: "", email: "", password: "", phone: "" });
-    const handelSubmit = (e) => {
+    const handelSubmit = async (e) => {
         e.preventDefault();
-        createUser(data, img);
-        if(localStorage.getItem('auth-token')){
+
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('phone', data.phone);
+        formData.append('bio', data.bio);
+        formData.append('photo', img);
+        const response = await axios.post("http://localhost:8000/api/auth/createuser", formData, {
+        })
+        //console.log(response);
+        if (response.data.sucess) {
+            localStorage.setItem('auth-token', response.data.authToken);
             navigate('/')
-           }
+        }
     }
     const handelChange = (e) => {
 

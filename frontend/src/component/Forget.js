@@ -1,27 +1,29 @@
-import React,{useState} from 'react';
-
-
+import React, { useState } from 'react';
 const Forget = () => {
 
-const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
+    
 
 
-
-    const handelChange=(e)=>{
-setEmail(e.target.value)
+    const handelChange = (e) => {
+        setEmail(e.target.value)
     }
-    const handelSubmit=async(e)=>{
+    const handelSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:8000/api/auth/forgetpassword", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email})
+            body: JSON.stringify({ email })
         });
-        const json =await response.json();
-        console.log(json);
-       
+        const json = await response.json();
+        //console.log(json);
+        if (json.success) {
+            window.location.replace('http://mail.google.com/')
+            // navigate('http://mail.google.com/')
+        }
+
     }
     return (
         <div>
@@ -33,6 +35,8 @@ setEmail(e.target.value)
                 </div>
                 <button type="submit" onClick={handelSubmit} className="btn btn-primary ">Submit</button>
             </form>
+            
+            <h5>An Email will be sent to your email id</h5>
         </div>
     )
 }

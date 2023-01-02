@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AddProduct from '../component/AddProduct';
 import Dashboard from '../component/Dashboard';
@@ -12,6 +12,11 @@ import ViewUser from '../component/ViewUser'
 
 
 const Home = () => {
+  useEffect(() => {
+   if(localStorage.getItem('auth=token')){
+    window.location.replace('http://localhost:3000/login')
+   }
+  }, [])
   
   
   return (

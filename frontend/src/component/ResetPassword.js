@@ -17,7 +17,7 @@ const ResetPassword = () => {
             body: JSON.stringify({ password })
         });
         const json = await response.json();
-        console.log(json);
+        //console.log(json);
         if (json.success) {
             navigate('/login');
         }

@@ -9,6 +9,7 @@ const Navbar = () => {
 
   const handelClick = () => {
     localStorage.removeItem('auth-token')
+    window.location.reload();
 
   }
   return (

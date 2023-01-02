@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 const LandingPage = () => {
   return (
     <div>
-        <button className='btn'><Link to="/login">Login</Link></button>
-        <button className='btn'><Link to="/signup">Signup</Link></button>
+        <Link className='btn btn-primary' to="/login">Login</Link>
+         <Link className='btn btn-primary m-2' to="/signup">Signup</Link>
     </div>
   )
 }

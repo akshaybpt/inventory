@@ -1,25 +1,33 @@
-import React, { useState,useContext,useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import userContext from '../context/user/userContex';
+
 
 const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
         if(localStorage.getItem('auth-token')){
-            localStorage.removeItem('auth-token')
+            navigate('/')
         }
+        // eslint-disable-next-line
     }, [])
     
-    
-    const context = useContext(userContext)
-    const{userLogin}=context
     const [credientials, setCredientials] = useState({ email: "", password: "" })
-    const handelSubmit =  (e) => {
+    const handelSubmit =async(e) => {
         e.preventDefault();
-        userLogin(credientials);
-        if (localStorage.getItem('auth-token')) {
-            navigate('/')
+        const response = await fetch("http://localhost:8000/api/auth/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email: credientials.email, password: credientials.password })
+        });
+        const json = await response.json()
+        // console.log(json);
+        // console.log(json.authToken);
+        if (json.sucess) {
+            localStorage.setItem('auth-token', json.authToken);
+            navigate('/');
         }
     }
     const handelChange = (e) => {
