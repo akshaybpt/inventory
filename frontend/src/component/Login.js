@@ -1,19 +1,23 @@
-import React, { useState,useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState,useContext,useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import userContext from '../context/user/userContex';
 
 const Login = () => {
     const navigate = useNavigate();
-    if(localStorage.getItem('auth-token')){
-        localStorage.removeItem('auth-token')
-    }
+
+    useEffect(() => {
+        if(localStorage.getItem('auth-token')){
+            localStorage.removeItem('auth-token')
+        }
+    }, [])
+    
+    
     const context = useContext(userContext)
     const{userLogin}=context
     const [credientials, setCredientials] = useState({ email: "", password: "" })
     const handelSubmit =  (e) => {
         e.preventDefault();
         userLogin(credientials);
-        
         if (localStorage.getItem('auth-token')) {
             navigate('/')
         }
@@ -53,7 +57,7 @@ const Login = () => {
                                 </p>
 
                                 <div>
-                                    <button type="submit" onClick={handelSubmit} className="btn btn-primary   ">Submit</button>
+                                    <Link type="submit" onClick={handelSubmit} className="btn btn-primary" to="/">Submit</Link>
                                 </div>
 
                             </form>

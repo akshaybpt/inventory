@@ -1,15 +1,11 @@
-import React, { useEffect, useContext, } from 'react';
+import React, { useContext, } from 'react';
 import productContext from '../context/product/productContext';
 import ProductItem from './ProductItem';
 
 const Product = () => {
     const firstContext = useContext(productContext);
-    const { products, getProduct } = firstContext;
+    const { products  } = firstContext;
 
-    useEffect(() => {
-        getProduct();
-        // eslint-disable-next-line
-    }, [])
    
     return (
         <>

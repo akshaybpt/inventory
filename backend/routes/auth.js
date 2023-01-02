@@ -149,7 +149,16 @@ router.patch('/updateuser', fetchUser, upload.single('photo'), async (req, res, 
         const users = await User.findById(req.user.id)
           const { name, phone, bio } = req.body;
         const url = req.protocol + '://' + req.get('host')
-        const photo = url + '/public/' + req.file.filename
+        // if user doesn't want to change the img
+        try {
+            const photo = url + '/public/' + req.file.filename
+            if (photo) {
+                users.photo = photo;
+                  }
+        } catch (error) {
+            
+        }finally{
+        
         // const updateUser = ({})
           if (name) {
               users.name = name;
@@ -157,9 +166,7 @@ router.patch('/updateuser', fetchUser, upload.single('photo'), async (req, res, 
           if (phone) {
               users.phone = phone;
           }
-          if (photo) {
-        users.photo = photo;
-          }
+          
           if (bio) {
              users.bio = bio;
           }
@@ -170,6 +177,7 @@ router.patch('/updateuser', fetchUser, upload.single('photo'), async (req, res, 
         let newuser = await users.save();
         newuser = await User.findById(req.user.id).select("-password")
         res.json(newuser)
+        }
     }
     catch (error) {
         console.error(error.message);

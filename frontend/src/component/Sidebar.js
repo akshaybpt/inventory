@@ -45,8 +45,13 @@ const Sidebar = () => {
                                                     Edit Profile
                                                 </Link>
                                             </li>
+                                            <li className="nav-item">
+                                                <Link to="/editpassword" className="nav-link link-dark">
+                                                    <svg className="bi pe-none me-2" width="16" height="16"></svg>
+                                                    Edit Password
+                                                </Link>
+                                            </li>
                                         </ul>
-
                                     </div>
                                 </div>
                             </div>

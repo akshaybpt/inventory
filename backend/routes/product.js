@@ -54,7 +54,21 @@ router.patch('/updateproduct/:id', fetchUser, upload.single('photo'), async (req
         const { name, category, sku, sellPrice,description, buyPrice, quantity } = req.body;
         // const newProduct = ({});
         const url = req.protocol + '://' + req.get('host')
-        const photo = url + '/public/' + req.file.filename
+     // if user doesnt eant to change the img
+        try {
+            if(req.file.filename){
+                const  photo = url + '/public/' + req.file.filename;
+                if (photo) {
+                    product.photo = photo;
+                }
+            }
+            
+        } catch (error) {
+            //console.error("image is not selected");
+        //res.status(500).send("Internal Server Error");
+            
+        }
+        finally{
         if (name) {
             product.name = name;
         }
@@ -73,9 +87,7 @@ router.patch('/updateproduct/:id', fetchUser, upload.single('photo'), async (req
         if (quantity) {
             product.quantity = quantity;
         }
-        if (photo) {
-            product.photo = photo;
-        }
+        
         if (description) {
             product.description = description;
         }
@@ -83,6 +95,7 @@ router.patch('/updateproduct/:id', fetchUser, upload.single('photo'), async (req
         let newproduct = await product.save();
         newproduct =  await Product.findById(req.params.id);
         res.send(newproduct);
+    }
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal server error");

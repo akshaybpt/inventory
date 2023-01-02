@@ -1,19 +1,28 @@
-import React, { useState,useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import productContext from '../context/product/productContext';
 
 
 const AddProduct = () => {
-    const context=useContext(productContext);
-    const {createProduct}=context;
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!localStorage.getItem('auth-token')) {
+            navigate('/login')
+        }
+        // eslint-disable-next-line
+    }, [])
+
+    const context = useContext(productContext);
+    const { createProduct } = context;
     const [img, setImg] = useState('');
     const [data, setData] = useState({ name: "", sku: "", category: "", quantity: "", buyPrice: "", sellPrice: "", description: "" });
     const handelSubmit = (e) => {
 
         e.preventDefault();
-        createProduct(data,img);
-       
+        createProduct(data, img);
+
     }
- 
+
     const handelChange = (e) => {
 
         setData({ ...data, [e.target.name]: e.target.value })

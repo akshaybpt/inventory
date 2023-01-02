@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import userContext from '../context/user/userContex';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const Signup = () => {
     const navigate = useNavigate();
     if(localStorage.getItem('auth-token')){
@@ -15,10 +15,7 @@ const Signup = () => {
         createUser(data, img);
         if(localStorage.getItem('auth-token')){
             navigate('/')
-           }else{
-            console.log("false");
            }
-        
     }
     const handelChange = (e) => {
 
@@ -57,7 +54,7 @@ const Signup = () => {
                                 <div className="form-group">
                                     <input type="file" name='photo' onChange={handelImgChange} />
                                 </div>
-                                <button type="submit" onClick={handelSubmit} className="btn btn-primary">Submit</button>
+                                <Link type="submit" onClick={handelSubmit} className="btn btn-primary" to='/'>Submit</Link>
                             </form>
                         </div>
                     </div>

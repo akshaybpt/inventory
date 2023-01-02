@@ -13,12 +13,7 @@ import Login from './component/Login';
 import Forget from './component/Forget';
 import ResetPassword from './component/ResetPassword';
 import UserState from './context/user/UserState';
-import LandingPage from './page/LandingPage';
-
-
 const App = () => {
-
-
   return (
     <div>
       <UserState>
@@ -31,7 +26,7 @@ const App = () => {
             <Route exact path="/forget" element={<Forget />} />
             <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
           </Routes>
-          {localStorage.getItem('auth-token')?  <Home />: ""}
+          {localStorage.getItem('auth-token')?<Home/>:"" }
         </Router>
         </ProductState>
       </UserState>

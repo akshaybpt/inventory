@@ -25,3 +25,10 @@
 -ms-overflow-style: none;  /* IE and Edge */
 scrollbar-width: none;  /* Firefox */
 }
+.userdetails img{
+
+  width: 175px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+}

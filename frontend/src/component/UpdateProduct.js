@@ -7,15 +7,12 @@ const UpdateProduct = () => {
   const navigate = useNavigate();
   const context = useContext(productContext)
   const { productDetails, updateProductDetails } = context
-  const [img, setImg] = useState({ photo: productDetails.photo });
+  const [img, setImg] = useState();
   const [data, setData] = useState({ id: id, name: productDetails.name, sku: productDetails.sku, category: productDetails.category, quantity: productDetails.quantity, buyPrice: productDetails.buyPrice, sellPrice: productDetails.sellPrice, description: productDetails.description });
   const handelSubmit = (e) => {
-
     e.preventDefault();
     updateProductDetails(data, img, id);
     navigate(`/product/${id}`);
-
-
   }
 
   const handelChange = (e) => {
@@ -23,8 +20,9 @@ const UpdateProduct = () => {
     setData({ ...data, [e.target.name]: e.target.value })
   }
   const handelImgChange = (e) => {
-    setImg(e.target.files[0])
+    setImg({...img,[e.target.name]: e.target.files[0]})
   }
+  console.log(img);
   return (
     <div>
       <div className="addproduct ">
@@ -59,7 +57,7 @@ const UpdateProduct = () => {
               <label htmlFor="description" className="form-label">Description: </label>
               <input type="text" className="form-control" id="description" name='description' value={data.description} onChange={handelChange} aria-describedby="description" />
             </div>
-            <img src={productDetails.photo} alt={productDetails.name} width='200px' className='img-fluid mb-3' />
+            <img src={img} alt={productDetails.name} width='200px' className='img-fluid mb-3' />
             <div className="form-group mb-3">
               <input type="file" name='photo' onChange={handelImgChange} />
             </div>

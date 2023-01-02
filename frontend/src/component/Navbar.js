@@ -1,27 +1,24 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import userContext from '../context/user/userContex';
-
+import { Link } from 'react-router-dom';
 const Navbar = () => {
   // const navigate=useNavigation();
 
   const context = useContext(userContext)
-  const { user, getUserDetails } = context;
-  useEffect(() => {
-    getUserDetails();
-    // eslint-disable-next-line
-  }, [])
-  const handelClick=()=>{
+  const { user } = context;
+
+  const handelClick = () => {
     localStorage.removeItem('auth-token')
-    // navigate('/login');
+
   }
   return (
-    <div>
-      <div className="top d-flex justify-content-between">
-        <h1>welcome {user.name}</h1>
-        <button className='btn' onClick={handelClick}>logout</button>
+    <>
+      <div className="mt-1 d-flex justify-content-between">
+        <h1>Welcome {user.name}</h1>
+        <Link className='btn btn-danger' onClick={handelClick} to="/login">logout</Link>
       </div>
       <hr />
-    </div>
+    </>
   )
 }
 
