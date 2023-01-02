@@ -27,6 +27,7 @@ const Login = () => {
         // console.log(json.authToken);
         if (json.sucess) {
             localStorage.setItem('auth-token', json.authToken);
+            window.location.reload();
             navigate('/');
         }
     }
