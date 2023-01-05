@@ -11,6 +11,7 @@
   }
   .productdiv{
     height: 100vh;
+    width: 100%;
     overflow-y: scroll;
 
   }
@@ -31,4 +32,7 @@ scrollbar-width: none;  /* Firefox */
   aspect-ratio: 1;
   border-radius: 50%;
   object-fit: cover;
+}
+.ps-sidebar-container{
+  height: 100vh !important;
 }

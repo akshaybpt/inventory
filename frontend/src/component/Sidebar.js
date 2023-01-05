@@ -1,67 +1,34 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-const Sidebar = () => {
+import { Sidebar, Menu, MenuItem, useProSidebar, SubMenu } from 'react-pro-sidebar';
+import { FaUserEdit } from "react-icons/fa"
+import { GiHamburgerMenu } from "react-icons/gi";
+import { MdDashboard, MdLogout } from "react-icons/md";
+import { IoAddCircle } from "react-icons/io5";
+import { CgProfile, CgPassword } from "react-icons/cg";
+import { Link } from 'react-router-dom';
+import userContext from '../context/user/userContex';
+import React,{useContext} from 'react';
+const Sidebarr = () => {
+    const context=useContext(userContext);
+    const {user}=context
+    const { collapseSidebar } = useProSidebar();
+
     return (
-        <div>
-            <div className="d-flex flex-column flex-shrink-0 p-3 bg-light" >
-                <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                    <svg className="bi pe-none me-2" width="40" height="32"></svg>
-                    <span className="fs-4">Inventory</span>
-                </Link>
-                <hr />
-                <ul className="nav nav-pills flex-column mb-auto">
-                    <li className="nav-item">
-                        <Link to="/" className="nav-link link-dark" aria-current="page">
-                            <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            DashBoard
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/addproduct" className="nav-link link-dark">
-                            <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                            Add Product
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <div className="accordion " id="accordionFlushExample">
-                            <div className="accordion-item">
-                                <h2 className="accordion-header" id="flush-headingOne">
-                                    <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        Account
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div className="accordion-body">
-                                        <ul className="nav nav-pills flex-column mb-auto">
-                                            <li className="nav-item">
-                                                <Link to="/profile" className="nav-link link-dark">
-                                                    <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                                                    Profile
-                                                </Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link to="/editprofile" className="nav-link link-dark">
-                                                    <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                                                    Edit Profile
-                                                </Link>
-                                            </li>
-                                            <li className="nav-item">
-                                                <Link to="/editpassword" className="nav-link link-dark">
-                                                    <svg className="bi pe-none me-2" width="16" height="16"></svg>
-                                                    Edit Password
-                                                </Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
+        <div >
+            <Sidebar >
+                <Menu iconShape="square">
+                    <MenuItem icon={<GiHamburgerMenu />} onClick={() => collapseSidebar()}>{user.name}</MenuItem>
+                    <hr />
+                    <MenuItem routerLink={<Link to="/" />} icon={<MdDashboard />} > Dashboard </MenuItem>
+                    <MenuItem routerLink={<Link to="/addproduct" />} icon={<IoAddCircle />}>Add Product</MenuItem>
+                    <SubMenu icon={<CgProfile />} prefix={<>Profile</>}>
+                        <MenuItem routerLink={<Link to="/profile" />} icon={<CgProfile />}> View Profile </MenuItem>
+                        <MenuItem routerLink={<Link to="/editprofile" />} icon={<FaUserEdit />}> Edit Profile </MenuItem>
+                        <MenuItem routerLink={<Link to="/editpassword" />} icon={<CgPassword />} >Change Password</MenuItem>
+                    </SubMenu>
+                    <MenuItem icon={<MdLogout />} >Logout</MenuItem>
+                </Menu>
+            </Sidebar>
         </div>
-    )
+    );
 }
-
-export default Sidebar
+export default Sidebarr;

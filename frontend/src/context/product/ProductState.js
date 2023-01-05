@@ -3,7 +3,7 @@ import productContext from './productContext';
 import axios from 'axios';
 
 const ProductState = (props) => {
-
+  
   const host = ' http://localhost:8000';
   const productInitial = [
     {
@@ -92,6 +92,8 @@ const ProductState = (props) => {
     console.log(json);
 
   }
+
+
   const createProduct = async (data, img) => {
     const formData = new FormData();
     formData.append('name', data.name);
