@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 
@@ -6,14 +6,14 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(localStorage.getItem('auth-token')){
+        if (localStorage.getItem('auth-token')) {
             navigate('/')
         }
         // eslint-disable-next-line
     }, [])
-    
+
     const [credientials, setCredientials] = useState({ email: "", password: "" })
-    const handelSubmit =async(e) => {
+    const handelSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:8000/api/auth/login", {
             method: 'POST',
@@ -27,54 +27,40 @@ const Login = () => {
         // console.log(json.authToken);
         if (json.sucess) {
             localStorage.setItem('auth-token', json.authToken);
-            window.location.reload();
-            navigate('/');
+            navigate('/dash');
         }
     }
     const handelChange = (e) => {
         setCredientials({ ...credientials, [e.target.name]: e.target.value });
     }
-    const handelForget = () => {
-        navigate('/forget');
-    }
-    const handelRegister = () => {
-        navigate('/signup');
-    }
 
     return (
-        <div className='login'>
-            <div className="container  ">
-                <div className="row">
-                    <div className="col-md-12">
-                        <div className='loginpage my-5 pb-5'>
-                            <h1>Please login</h1>
-                            <form className='loginform'>
-                                <div className="mb-3">
-                                    <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
-                                    <input type="email" className="form-control" id="exampleInputEmail1" name='email' onChange={handelChange} aria-describedby="emailHelp" />
-                                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                                    <input type="password" className="form-control" name='password' onChange={handelChange} id="exampleInputPassword1" />
-                                </div>
-                                <p className="text">
-                                    Don't have an account <button className='btn btn-outline-info' onClick={handelRegister}>Register</button>
-                                </p>
-                                <p className="text">
-                                    Don't remeber the password <button className='btn btn-outline-info' onClick={handelForget}>Forget Password</button>
-                                </p>
-
-                                <div>
-                                    <Link type="submit" onClick={handelSubmit} className="btn btn-primary" to="/">Submit</Link>
-                                </div>
-
-                            </form>
+        <>
+            <div className='container'>
+                <div className="vh-100 d-flex justify-content-center align-items-center loginPage ">
+                    <div className="col-md-5 p-5 shadow-sm border rounded-5  bg-white">
+                        <h2 className="text-center mb-4 ">Login Form</h2>
+                        <form>
+                            <div className="mb-3 form-group">
+                                <label htmlFor="email" className="form-label">Email address</label>
+                                <input type="email" className="form-control border" name='email' onChange={handelChange} id="email" aria-describedby="emailHelp" required />
+                            </div>
+                            <div className="mb-3 form-group">
+                                <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+                                <input type="password" className="form-control border" name='password' onChange={handelChange} id="exampleInputPassword1" required />
+                            </div>
+                            <p className="small"><Link className="textColor" to="/forget">Forgot password?</Link></p>
+                            <div className="d-grid">
+                                <button className="btn btn-primary" onClick={handelSubmit} type="submit">Login</button>
+                            </div>
+                        </form>
+                        <div className="mt-3">
+                            <p className="mb-0  text-center">Don't have an account? <Link to="/signup" className="textColor fw-bold">Sign Up</Link></p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
 
     )
 }

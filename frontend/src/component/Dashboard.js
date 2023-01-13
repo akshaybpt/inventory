@@ -18,12 +18,8 @@ const Dashboard = () => {
     }
     getProduct();
     getUserDetails();
-   
-    
     // eslint-disable-next-line
   }, [])
-  
-
   return (
     
       <div className="item">
