@@ -1,8 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import alertContext from '../context/alert/alertContext';
 const ResetPassword = () => {
     let { token } = useParams();
-    let navigate = useNavigate()
+    let navigate = useNavigate();
+    const context = useContext(alertContext);
+    const { showAlert } = context;
+    useEffect(() => {
+        if (localStorage.getItem('auth-token')) {
+            showAlert('logout first', 'danger');
+            navigate('/dash')
+        }
+        // eslint-disable-next-line
+    }, [])
     const [password, setPassword] = useState({ newPassword: "", cnfNewPassword: "" })
     const handelChange = (e) => {
         setPassword(e.target.value)

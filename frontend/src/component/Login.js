@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import alertContext from '../context/alert/alertContext';
 
 
 const Login = () => {
     const navigate = useNavigate();
+    const context = useContext(alertContext);
+    const {showAlert}=context;
 
     useEffect(() => {
         if (localStorage.getItem('auth-token')) {
-            navigate('/')
+            showAlert('logout first','danger');
+            navigate('/dash')
         }
         // eslint-disable-next-line
     }, [])
@@ -27,6 +31,7 @@ const Login = () => {
         // console.log(json.authToken);
         if (json.sucess) {
             localStorage.setItem('auth-token', json.authToken);
+            showAlert("welcome",'success');
             navigate('/dash');
         }
     }

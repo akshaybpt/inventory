@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { BsFillShieldLockFill } from 'react-icons/bs';
 import { AiOutlineMail } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
+import userContext from '../context/user/userContex';
 const Forget = () => {
-
-    const navigate=useNavigate();
+    const constext = useContext(userContext);
+    const { showAlert } = constext;
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [send, setSend] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('auth-token')) {
+            navigate('/dash');
+            showAlert('logout first', 'danger');
+           
+        }
+        // eslint-disable-next-line
+    }, [])
 
 
     const handelChange = (e) => {
@@ -24,9 +34,8 @@ const Forget = () => {
         const json = await response.json();
         //console.log(json);
         if (json.success) {
-            setSend(true);
-            
-             navigate('/login')
+            showAlert('email has been sent to your emailid', 'success');
+            navigate('/login')
         }
 
     }
@@ -47,7 +56,7 @@ const Forget = () => {
                                 <button className="btn btn-primary" onClick={handelSubmit} type="submit">Reset Password</button>
                             </div>
                         </form>
-                        {send?<h1>An Email has been sent to your register email id</h1>:""}
+
                     </div>
                 </div>
             </div>

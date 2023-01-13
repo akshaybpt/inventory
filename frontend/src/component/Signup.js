@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
-import {useNavigate } from 'react-router-dom';
+import React, { useState, useContext,useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import alertContext from '../context/alert/alertContext';
 const Signup = () => {
+    const context = useContext(alertContext);
+    const { showAlert } = context;
     const navigate = useNavigate();
-    if (localStorage.getItem('auth-token')) {
-        localStorage.removeItem('auth-token')
-    }
+    useEffect(() => {
+        if (localStorage.getItem('auth-token')) {
+            showAlert('logout first','danger');
+            navigate('/dash')
+        }
+        // eslint-disable-next-line
+    }, [])
 
     const [img, setImg] = useState('');
     const [data, setData] = useState({ name: "", bio: "", email: "", password: "", cnfPassword: "", phone: "" });
@@ -24,7 +31,8 @@ const Signup = () => {
         //console.log(response);
         if (response.data.sucess) {
             localStorage.setItem('auth-token', response.data.authToken);
-            navigate('/dash')
+            showAlert("Welcome", 'success');
+            navigate('/dash');
         }
     }
     const handelChange = (e) => {
