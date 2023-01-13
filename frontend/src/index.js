@@ -7,6 +7,7 @@ import {
 import App from './App';
 import UserState from './context/user/UserState';
 import ProductState from './context/product/ProductState';
+import AlertState from './context/alert/AlertState';
 import reportWebVitals from './reportWebVitals';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { IconContext } from 'react-icons/lib';
@@ -15,13 +16,15 @@ root.render(
   <React.StrictMode>
     <IconContext.Provider value={{ color: "blue", className: "global-class-name" }}>
       <ProSidebarProvider>
-      <UserState>
-      <ProductState>
-        <Router>
-          <App />
-        </Router>
-        </ProductState>
-        </UserState>
+        <AlertState >
+          <UserState>
+            <ProductState>
+              <Router>
+                <App />
+              </Router>
+            </ProductState>
+          </UserState>
+        </AlertState>
       </ProSidebarProvider>
     </IconContext.Provider>
   </React.StrictMode>

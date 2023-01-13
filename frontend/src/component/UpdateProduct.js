@@ -59,7 +59,6 @@ const UpdateProduct = () => {
                   <label htmlFor="description" className="form-label">Description: </label>
                   <input type="text" className="form-control" id="description" name='description' value={data.description} onChange={handelChange} aria-describedby="description" required />
                 </div>
-
                 <div className="col-sm-6 form-group mb-3">
                   <label htmlFor="img" className='form-label'>Product img</label>
                   <input type="file" name='photo' className='form-control' onChange={handelImgChange} aria-describedby="img" required />

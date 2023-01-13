@@ -32,7 +32,8 @@ router.post('/addproduct', fetchUser, upload.single('photo'), async (req, res, n
             name, sku, category, sellPrice, buyPrice,description, quantity, photo: url + '/public/' + req.file.filename, user: req.user.id
         })
         const newProduct = await product.save();
-        res.json({ newProduct });
+        let sucess = true;
+        res.json({ sucess,newProduct });
 
     } catch (error) {
         console.error(error.message);
@@ -94,7 +95,8 @@ router.patch('/updateproduct/:id', fetchUser, upload.single('photo'), async (req
 
         let newproduct = await product.save();
         newproduct =  await Product.findById(req.params.id);
-        res.send(newproduct);
+       let sucess = true;
+        res.json({sucess,newproduct});
     }
     } catch (error) {
         console.error(error.message);

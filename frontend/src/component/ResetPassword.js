@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 const ResetPassword = () => {
     let { token } = useParams();
     let navigate = useNavigate()
-    const [password, setPassword] = useState({newPassword:"",cnfNewPassword:""})
+    const [password, setPassword] = useState({ newPassword: "", cnfNewPassword: "" })
     const handelChange = (e) => {
         setPassword(e.target.value)
     }
@@ -14,7 +14,7 @@ const ResetPassword = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify( password.newPassword )
+            body: JSON.stringify(password.newPassword)
         });
         const json = await response.json();
         //console.log(json);
@@ -24,8 +24,8 @@ const ResetPassword = () => {
 
     }
     return (
-       <>
-       <div className='container'>
+        <>
+            <div className='container'>
                 <div className="vh-100 d-flex justify-content-center align-items-center loginPage ">
                     <div className="col-md-5 p-5 shadow-sm border rounded-5  bg-white">
                         <h2 className="text-center mb-4 ">Reset Password</h2>
@@ -45,7 +45,7 @@ const ResetPassword = () => {
                     </div>
                 </div>
             </div>
-       </>
+        </>
     )
 }
 

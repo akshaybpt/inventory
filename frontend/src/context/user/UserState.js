@@ -66,19 +66,19 @@ const UserState = (props) => {
         console.log(response)
 
     }
-    const updatePassword=async(credientials)=>{
+    const updatePassword = async (credientials) => {
         const response = await fetch("http://localhost:8000/api/auth/updatepassword", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ oldpassword: credientials.oldpassword, newpassword: credientials.newpassword })
+            body: JSON.stringify({ oldpassword: credientials.oldPassword, newpassword: credientials.newPassword })
         });
-        const json=await response.json();
+        const json = await response.json();
         console.log(json);
 
     }
-    return (<userContext.Provider value={{ user, createUser, getUserDetails, userLogin, updateUser,updatePassword }}>
+    return (<userContext.Provider value={{ user, createUser, getUserDetails, userLogin, updateUser, updatePassword }}>
         {props.children}
     </userContext.Provider>)
 }

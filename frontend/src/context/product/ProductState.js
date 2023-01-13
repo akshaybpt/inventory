@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import productContext from './productContext';
 import axios from 'axios';
+import alertContext from '../alert/alertContext';
+
 
 const ProductState = (props) => {
-  
+  const context = useContext(alertContext);
+  const { showAlert } = context;
+
   const host = ' http://localhost:8000';
   const productInitial = [
     {
@@ -49,7 +53,7 @@ const ProductState = (props) => {
     });
     //logic
     const json = await response.json()
-    console.log(json)
+    //console.log(json)
     setProducts(json);
   }
   const deleteProduct = async (id) => {
@@ -67,10 +71,12 @@ const ProductState = (props) => {
       // body data type must match "Content-Type" header
     });
     const json = await response.json()
-    console.log(json)
-
-    //logic
-    console.log("product with id" + id + "has been deleted");
+    if (json.Sucess) {
+      //logic
+      showAlert("Product has been deleted", 'success');
+    } else {
+      showAlert('error', 'danger');
+    }
     // to delete a product using the fillter function it will filter the product with the given id
     const newProduct = products.filter((item) => { return item._id !== id })
     setProducts(newProduct)
@@ -110,8 +116,13 @@ const ProductState = (props) => {
         'auth-token': localStorage.getItem('auth-token')
       }
     })
-    console.log(response)
+    //console.log(response)
     // console.log(res.data.profileImg);
+    if (response.data.sucess) {
+      showAlert('Product has been created', 'success');
+    } else {
+      showAlert('error', 'danger',);
+    }
 
   }
   const updateProductDetails = async (data, img, id) => {
@@ -130,8 +141,13 @@ const ProductState = (props) => {
         'auth-token': localStorage.getItem('auth-token')
       }
     })
-    console.log(response)
-    // console.log(res.data.profileImg);
+    //console.log(response)
+    // console.log(response.data.sucess);
+    if (response.data.sucess) {
+      showAlert('Product has been updated', 'success');
+    } else {
+      showAlert('error', 'danger',);
+    }
 
 
   }

@@ -17,6 +17,7 @@ import EditUser from './component/EditUser';
 import EditPassword from './component/EditPassword';
 import Sidebarr from './component/Sidebar';
 import Land from './Land';
+import Alert from './component/Alert';
 
 const App = () => {
   useEffect(() => {
@@ -31,36 +32,38 @@ const App = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
-            {login?
-            <div className='d-flex'>
-              <div className='flex-fill'>
-                <Sidebarr />
-              </div>
-              <div className="productdiv flex-fill">
-                <div className="container mt-3">
-                  <Routes>
-                    <Route exact path={'/dash'} element={<Dashboard />} />
-                    <Route exact path={'/addproduct'} element={<AddProduct />} />
-                    <Route exact path={'/product/:id'} element={<ViewProduct />} />
-                    <Route exact path={'/updateproduct/:id'} element={<UpdateProduct />} />
-                    <Route exact path={'/profile'} element={<ViewUser />} />
-                    <Route exact path={'/editprofile'} element={<EditUser />} />
-                    <Route exact path={'/editpassword'} element={<EditPassword />} />
-                  </Routes>
+            {login ?
+              <div className='d-flex'>
+                <div className='flex-fill'>
+                  <Sidebarr />
+                </div>
+                <div className="productdiv flex-fill">
+                  <div className="container mt-3">
+                    <Alert />
+                    <Routes>
+                      <Route exact path={'/dash'} element={<Dashboard />} />
+                      <Route exact path={'/addproduct'} element={<AddProduct />} />
+                      <Route exact path={'/product/:id'} element={<ViewProduct />} />
+                      <Route exact path={'/updateproduct/:id'} element={<UpdateProduct />} />
+                      <Route exact path={'/profile'} element={<ViewUser />} />
+                      <Route exact path={'/editprofile'} element={<EditUser />} />
+                      <Route exact path={'/editpassword'} element={<EditPassword />} />
+                    </Routes>
+                  </div>
                 </div>
               </div>
-            </div>
-            :
-            <>
-            <Routes>
-            <Route exact path="/" element={<Land />} />
-              <Route exact path="/signup" element={<Signup />} />
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path="/forget" element={<Forget />} />
-              <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
-            </Routes>
-            </>
-}
+              :
+              <>
+                <Alert />
+                <Routes>
+                  <Route exact path="/" element={<Land />} />
+                  <Route exact path="/signup" element={<Signup />} />
+                  <Route exact path="/login" element={<Login />} />
+                  <Route exact path="/forget" element={<Forget />} />
+                  <Route exact path="/resetpassword/:token" element={<ResetPassword />} />
+                </Routes>
+              </>
+            }
           </div>
         </div>
       </div>
